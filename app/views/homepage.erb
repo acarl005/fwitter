@@ -1,8 +1,18 @@
+<% if current_user == params[:id] %>
+<!-- display username -->
+<h1>Welcome <%= @user.username.capitalize %></h1>
+
 <!-- logout button -->
+
+
 
 <!-- #of followers, #of following -->
 
 <!-- include new tweet form -->
+<form method="post" action="/users/<%= @user.id %>/tweets">
+  <textarea name="tweet" placeholder="Tweet your thoughts to the world!"></textarea>
+  <input type="submit" value="Tweet">
+</form>
 
 <!-- display followee tweets
 ^^each tweet is a section -->

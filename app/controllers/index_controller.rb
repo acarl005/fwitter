@@ -1,10 +1,7 @@
-get '/' do
-  "Hello World"
-  "whattttt"
-end
-
-get '/users/:id' do
-  #user homepage erb
+get '/users/:id/home' do
+  @user = User.find(params[:id])
+  # @user = User.where(id: params[:id]).first
+  erb(:homepage)
 end
 
 get '/users/new' do
@@ -13,7 +10,13 @@ end
 
 post '/users' do
   #create new user
-  #redirect to /users/:id
+  #redirect to /users/:id/home
+end
+
+get '/users/:id' do
+  @user = User.where(id: params[:id]).first
+  #show user profile
+  erb :'users/profile'
 end
 
 get '/users/:id/edit' do
@@ -21,9 +24,10 @@ get '/users/:id/edit' do
   #edit form erb
 end
 
+
 put '/users/:id' do
   #update user profile
-  #redirect to get '/users/:id'
+  #redirect to get '/users/:id/home'
 end
 
 delete '/users/:id' do
@@ -37,8 +41,14 @@ get '/users/:id/tweets' do
 end
 
 post '/users/:id/tweets' do
-  #create a new tweet
-  #redirect to users/:id
+  @tweet = Tweet.new(
+    text: params[:tweet]
+  )
+  if User.find(params[:id]).tweets << @tweet
+    redirect "/users/#{params[:id]}"
+  else
+    'you suck'
+  end
 end
 
 get '/users/:id/tweets/:id' do
@@ -50,7 +60,7 @@ delete '/users/:id/tweets/:id' do
 end
 
 post '/users/:id/relationships' do
-  #create a follower relationship
+  User.find(params[:id]).followers << current_user
 end
 
 delete '/users/:id/relationships/:id' do
