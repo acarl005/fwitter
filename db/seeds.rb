@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 tweets = [
     "This is a test tweet, yo",
     "this is yet another fake tweet, ugh",
@@ -7,3 +8,6 @@ tweets = [
 tweets.each do |tweet|
   Tweet.new(tweet)
 end
+=======
+require 'faker'
+>>>>>>> master
