@@ -1,3 +1,4 @@
+require 'faker'
 require 'gotfaker'
 
 
@@ -8,5 +9,15 @@ end
 
 User.create(username: "Chad", password_hash: "$2a$10$.8JWsVv7tbVjU.Scnpsvs.o9pCRtgW5XtkdE6N475iqKiLRT3oFwe")
 
+
+tweets = [
+    "This is a test tweet, yo",
+    "this is yet another fake tweet, ugh",
+    "I COULD DO THIS ALL DAY",
+  ]
+
+tweets.each do |tweet|
+  Tweet.new(tweet)
+end
 
 
