@@ -1,18 +1,16 @@
-<!-- <% if current_user == params[:id] %>
-  #cannot see "follow" button
-<% else %> -->
 
+<% if current_user == params[:id] %>
   <form method="post" action="/users/<%= params[:id] %>/relationships">
     <input type='submit' value="follow">
   </form>
-
+<% end %>
 <!-- logout button -->
 
-
-
+<%= params[:id] %>
+<%= current_user %>
 <!-- #of followers, #of following -->
 
 <!-- display user's tweets -->
   <% @user.tweets.each do |tweet| %>
-    <article><%= tweet %></article>
+    <article><%= tweet.text %></article>
   <% end %>

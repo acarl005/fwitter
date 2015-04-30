@@ -36,8 +36,3 @@ post '/signup' do
   end
 end
 
-get '/users/:id' do
-  @user = User.where(id: params[:id]).first
-  erb :"users/show"
-end
-
