@@ -11,4 +11,7 @@ class User < ActiveRecord::Base
   has_many :i_am_a_followee_relationships,
             class_name: "Relationship",
             foreign_key: "followee_id"
+
+  validates :username, presence: true, uniqueness: true
+  validates :password_hash, presence: true
 end
