@@ -7,7 +7,7 @@ require 'gotfaker'
 end
 
 
-User.create(username: "Chad", password_hash: "$2a$10$.8JWsVv7tbVjU.Scnpsvs.o9pCRtgW5XtkdE6N475iqKiLRT3oFwe")
+User.create(username: "Chad", password: "Cat")
 
 
 tweets = [
@@ -17,7 +17,8 @@ tweets = [
   ]
 
 tweets.each do |tweet|
-  Tweet.new(tweet)
+  Tweet.new(text: tweet)
+
 end
 
 
