@@ -4,12 +4,12 @@ require 'bcrypt'
 class User < ActiveRecord::Base
 
   validates :username, presence: true
-  validates :password, presence: true #password_hash instead?
+  validates :password_hash, presence: true
 
   include BCrypt
 
   def password
-    @password ||= Password.new(password_hash) if password_hash
+    @password ||= Password.new(password_hash) if password_hash #.present? ?
   end
 
   def password=(new_password)
