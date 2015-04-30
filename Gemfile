@@ -20,6 +20,8 @@ gem 'shotgun'
 
 gem 'faker'
 
+gem 'gotfaker'
+
 group :test do
   gem 'shoulda-matchers'
   gem 'rack-test'
