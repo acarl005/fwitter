@@ -3,11 +3,14 @@ require 'gotfaker'
 
 
 10.times do
-  User.create(username: GOTFaker::Character.random_name, bio: GOTFaker::Quote.bad_ass, password_hash: "$2a$10$.8JWsVv7tbVjU.Scnpsvs.o9pCRtgW5XtkdE6N475iqKiLRT3oFwe")
+  User.create(
+    username: GOTFaker::Character.random_name,
+    bio: GOTFaker::Quote.bad_ass,
+    password: "corn",
+    first_name: Faker::Name.first_name,
+    last_name: Faker::Name.last_name,
+  )
 end
-
-
-User.create(username: "Chad", password: "Cat")
 
 
 tweets = [
@@ -18,7 +21,6 @@ tweets = [
 
 tweets.each do |tweet|
   Tweet.new(text: tweet)
-
 end
 
 
