@@ -2,13 +2,12 @@ require 'faker'
 require 'gotfaker'
 
 
-10.times do
-  User.create(username: GOTFaker::Character.random_name, bio: GOTFaker::Quote.bad_ass, password_hash: "$2a$10$.8JWsVv7tbVjU.Scnpsvs.o9pCRtgW5XtkdE6N475iqKiLRT3oFwe")
-end
 
 
-User.create(username: "Chad", password: "Cat")
-
+erica = User.create(username: "coderica", first_name: "Erica", last_name: "Prenga", bio: GOTFaker::Quote.bad_ass, password: "popped")
+User.create(username: "Chad", first_name: "Chad", last_name: "Idontknow", bio: GOTFaker::Quote.bad_ass, password: "popped")
+User.create(username: "markiscool", first_name: "Mark", last_name: "Mcq", bio: GOTFaker::Quote.bad_ass, password: "popped")
+User.create(username: "andy", first_name: "Andy", last_name: "imnotsure", bio: GOTFaker::Quote.bad_ass, password: "[popped]")
 
 tweets = [
     "This is a test tweet, yo",
@@ -17,7 +16,7 @@ tweets = [
   ]
 
 tweets.each do |tweet|
-  Tweet.new(text: tweet)
+  erica.tweets << Tweet.new(text: tweet)
 
 end
 

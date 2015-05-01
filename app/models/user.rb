@@ -27,7 +27,7 @@ class User < ActiveRecord::Base
 
   validates :username, presence: true, uniqueness: true
   validates :password_hash, presence: true
-  validates :photo_url, presence: true
   validates :first_name, presence: true
   validates :last_name, presence: true
+  validates :username, format: { with: /\A[a-zA-Z0-9]+\Z/ }
 end
