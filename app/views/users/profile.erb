@@ -1,13 +1,19 @@
+<!-- display follow/unfollow button -->
+  <% if current_user != params[:id].to_i && logged_in? %>
+    <% if !User.find(current_user).followees.include?(User.find(params[:id])) %>
+      <form method="post" action="/users/<%= params[:id] %>/relationships">
+        <input type='submit' value="follow">
+      </form>
+    <% else %>
+      <form method="post" action="/users/<%= params[:id] %>/relationships">
+        <input type="hidden" name="_method" value="delete" >
+        <input type='submit' value="unfollow">
+      </form>
+    <% end %>
+  <% end %>
 
-<% if current_user == params[:id] %>
-  <form method="post" action="/users/<%= params[:id] %>/relationships">
-    <input type='submit' value="follow">
-  </form>
-<% end %>
 <!-- logout button -->
 
-<%= params[:id] %>
-<%= current_user %>
 <!-- #of followers, #of following -->
 
 <!-- display user's tweets -->
