@@ -1,13 +1,6 @@
+<!-- search for users by first name, last name, or username -->
 
-
-
-
-<form action="/login" method="POST">
-  <input type="text" name="username" placeholder="Username">
-  <input type="password" name="password" placeholder="Password">
-  <input type="submit" value="Enter" >
-</form>
-
-<a href="/signup">Sign Up</a>
-
-
+<!-- display first 10 users with the most followers -->
+  <% @top_ten.each do |user| %>
+    <h3><a href="/<%= user.username %>"><%= user.username %></a></h3>
+  <% end %>

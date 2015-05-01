@@ -9,8 +9,13 @@
   </form>
 
 <!-- #of followers, #of following -->
-  <h4>You have <%= @user.followers.count %> followers.</h4>
-  <h4>You are following <%= @user.followees.count %> users.</h4>
+  <h3>You have <%= @user.followers.count %>
+    <!-- singular vs. plural follower s -->
+      <% if @user.followers.count == 1 %> follower <% else %> followers <% end %>
+    and are following <%= @user.followees.count %>
+    <!-- singular vs. plural users -->
+      <% if @user.followees.count == 1 %> user.<% else %> users.<% end %>
+  </h3>
 
 <!-- include new tweet form -->
   <form method="post" action="/users/<%= @user.id %>/tweets">
@@ -18,7 +23,19 @@
     <input type="submit" value="Tweet">
   </form>
 
-<!-- display followee tweets
-^^each tweet is a section -->
+<!-- display followee tweets (each tweet is an article) --!>
+  <!-- tweets.each do |tweet|
+    <article>tweet</article>
+    end -->
 
-<!-- each user/tweet has a follow/unfollow option -->
+<!-- followers -->
+  <h3>Your followers:</h3>
+  <% @user.followers.each do |follower| %>
+    <p><a href="/<%= follower.username %>"><%= follower.username %></a></p>
+  <% end %>
+
+<!-- following -->
+  <h3>You are following:</h3>
+  <% @user.followees.each do |followee| %>
+    <p><a href="/<%= followee.username %>"><%= followee.username %></a></p>
+  <% end %>

@@ -1,25 +1,56 @@
-<!-- display follow/unfollow button -->
-  <% if current_user != params[:id].to_i && logged_in? %>
-    <% if !User.find(current_user).followees.include?(User.find(params[:id])) %>
-      <form method="post" action="/users/<%= params[:id] %>/relationships">
-        <input type='submit' value="follow">
-      </form>
-    <% else %>
-      <form method="post" action="/users/<%= params[:id] %>/relationships">
-        <input type="hidden" name="_method" value="delete" >
-        <input type='submit' value="unfollow">
-      </form>
+<!-- follow/unfollow login/logout -->
+  <% if logged_in? %>
+    <!-- logout form -->
+    <form method="post" action="/login">
+      <input type="hidden" name="_method" value="delete">
+      <input type="submit" value="logout">
+    </form>
+
+    <!-- follow && unfollow buttons -->
+    <% if current_user != @user.id.to_i %>
+      <% if !User.find(current_user).followees.include?(User.find(@user.id)) %>
+        <form method="post" action="/users/<%= @user.id %>/relationships">
+          <input type='submit' value="follow">
+        </form>
+      <% else %>
+        <form method="post" action="/users/<%= @user.id %>/relationships">
+          <input type="hidden" name="_method" value="delete" >
+          <input type='submit' value="unfollow">
+        </form>
+      <% end %>
     <% end %>
+  <% else %>
+    <!-- login form -->
+    <form action="/login" method="POST">
+      <input type="text" name="username" placeholder="Username">
+      <input type="password" name="password" placeholder="Password">
+      <input type="submit" value="login" >
+    </form>
   <% end %>
 
-<!-- logout button -->
-<p>Hello World</p>
-<%= params[:id] %>
-<%= current_user %>
-
 <!-- #of followers, #of following -->
+  <h3><%= @user.username.capitalize %> has <%= @user.followers.count %>
+    <!-- singular vs. plural follower s -->
+      <% if @user.followers.count == 1 %> follower <% else %> followers <% end %>
+    and is following <%= @user.followees.count %>
+    <!-- singular vs. plural users -->
+      <% if @user.followees.count == 1 %> user.<% else %> users.<% end %>
+  </h3>
 
 <!-- display user's tweets -->
+  <h3><%= @user.username.capitalize %>'s tweets!</h3>
   <% @user.tweets.each do |tweet| %>
     <article><%= tweet.text %></article>
+  <% end %>
+
+<!-- followers -->
+  <h3><%= @user.username.capitalize %>'s followers:</h3>
+  <% @user.followers.each do |follower| %>
+    <p><a href="/<%= follower.username %>"><%= follower.username %></a></p>
+  <% end %>
+
+<!-- following -->
+  <h3><%= @user.username.capitalize %> is following:</h3>
+  <% @user.followees.each do |followee| %>
+    <p><a href="/<%= followee.username %>"><%= followee.username %></a></p>
   <% end %>
