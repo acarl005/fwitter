@@ -94,19 +94,36 @@
 # EDIT PROFILE
   # EDIT FORM
   get '/users/:id/edit' do
+    @user = User.where(id: params[:id]).first
     erb :'users/edit'
   end
 
   # SUBMIT FORM
   put '/users/:id' do
-    #update user profile
-    redirect '/users/:id'
+    user = User.where(id: params[:id]).first
+    puts "**************************************"
+    p user
+    user.first_name = params[:first_name]
+    user.last_name = params[:last_name]
+    user.username = params[:username]
+    user.password = params[:password]
+    user.photo_url = params[:photo_url]
+    user.bio = params[:bio]
+    if user.save
+      status 200
+      redirect "/#{user.username}"
+    else
+      status 400
+      erb :"users/edit"
+    end
   end
 
   # DELETE PROFILE
   delete '/users/:id' do
-    #delete profile
-    #redirect to '/'
+    user = User.where(id: params[:id]).first
+    user.destroy
+    session[:id] = nil
+    redirect '/'
   end
 
 # LOGIN
