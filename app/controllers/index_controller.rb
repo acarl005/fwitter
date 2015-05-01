@@ -159,8 +159,8 @@
     end
   end
 
-  post '/likes' do
-    @tweet = Tweet.where(id: params.keys.first).first
+  post '/likes/:id' do
+    @tweet = Tweet.where(id: params[:id]).first
     @user = User.where(id: current_user).first
     if @tweet.likers << @user
       redirect("/#{@tweet.user.username}")
@@ -169,8 +169,8 @@
     end
   end
 
-  delete '/likes' do
-    @tweet = Tweet.where(id: params.keys.last).first
+  delete '/likes/:id' do
+    @tweet = Tweet.where(id: params[:id]).first
     @user = User.where(id: current_user).first
     if @tweet.likers.delete(@user)
       redirect("/#{@tweet.user.username}")
