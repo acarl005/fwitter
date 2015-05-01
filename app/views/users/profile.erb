@@ -1,5 +1,5 @@
 <!-- follow/unfollow login/logout -->
-  <% if logged_in? %>
+  <% if session[:id] %>
     <!-- logout form -->
     <form method="post" action="/login">
       <input type="hidden" name="_method" value="delete">
