@@ -69,26 +69,38 @@
   # THROUGH USER ID
   get '/users/:id' do
     @user = User.where(id: params[:id]).first
-    #show user profile
-    erb :'users/profile'
+    if @user
+      #show user profile
+      erb :'users/profile'
+    else
+      status 404
+      @error = "User does not exist"
+      erb :'error'
+    end
   end
 
   # THROUGH USERNAME
   get '/:username' do
     @user = User.where(username: params[:username]).first
-    erb :'users/profile'
+    if @user
+      erb :'users/profile'
+    else
+      status 404
+      @error = "User does not exist"
+      erb :'error'
+    end
   end
 
 # EDIT PROFILE
   # EDIT FORM
   get '/users/:id/edit' do
-    #edit form erb
+    erb :'users/edit'
   end
 
   # SUBMIT FORM
   put '/users/:id' do
     #update user profile
-    #redirect to get '/users/:id/home'
+    redirect '/users/:id'
   end
 
   # DELETE PROFILE
@@ -102,7 +114,7 @@
     @user = User.where(username: params[:username]).first
     if @user && @user.password == params[:password]
       session[:id] = @user.id
-      redirect "/home" #Will make this the users page probably.
+      redirect "/home"
     else
       status 400
       erb :"index"
@@ -137,11 +149,8 @@
     @tweet = Tweet.new(
       text: params[:tweet]
     )
-    if User.find(params[:id]).tweets << @tweet
-      redirect "/users/#{params[:id]}"
-    else
-      'you suck'
-    end
+    User.find(params[:id]).tweets << @tweet
+    redirect "/users/#{params[:id]}"
   end
 
 # DISPLAY SINGLE TWEET

@@ -8,6 +8,11 @@
     <input type="submit" value="logout">
   </form>
 
+<!-- edit profile button -->
+  <form method="get" action="/users/<%= @user.id %>/edit">
+    <input type="submit" value="Edit Profile">
+  </form>
+
 <!-- #of followers, #of following -->
   <h3>You have <%= @user.followers.count %>
     <!-- singular vs. plural follower s -->
@@ -17,7 +22,7 @@
       <% if @user.followees.count == 1 %> user.<% else %> users.<% end %>
   </h3>
 
-<!-- include new tweet form -->
+<!-- new tweet form -->
   <form method="post" action="/users/<%= @user.id %>/tweets">
     <textarea name="tweet" placeholder="Tweet your thoughts to the world!"></textarea>
     <input type="submit" value="Tweet">
