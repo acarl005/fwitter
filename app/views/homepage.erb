@@ -39,3 +39,10 @@
   <% @user.followees.each do |followee| %>
     <p><a href="/<%= followee.username %>"><%= followee.username %></a></p>
   <% end %>
+
+  <h3>Read some Tweets:</h3>
+  <ul>
+    <% @user.followees.map(&:tweets).flatten.sort_by(&:updated_at).each do |tweet| %>
+      <li>"<%= tweet.text %>" -<%= tweet.user.username %></li>
+    <% end %>
+  </ul>

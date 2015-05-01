@@ -153,3 +153,23 @@
   delete '/users/:id/tweets/:id' do
     #delete specific tweet
   end
+
+  post '/likes' do
+    @tweet = Tweet.where(id: params.keys.first).first
+    @user = User.where(id: current_user).first
+    if @tweet.likers << @user
+      redirect("/#{@tweet.user.username}")
+    else
+      redirect('/')
+    end
+  end
+
+  delete '/likes' do
+    @tweet = Tweet.where(id: params.keys.last).first
+    @user = User.where(id: current_user).first
+    if @tweet.likers.delete(@user)
+      redirect("/#{@tweet.user.username}")
+    else
+      redirect('/')
+    end
+  end
