@@ -1,13 +1,22 @@
 
+<p>LOGIN</p>
 
+<p>
+  <form action="/login" method="POST">
+    <p><input type="text" name="username" placeholder="Username"></p>
+    <p><input type="password" name="password" placeholder="Password"></p>
+    <p><input type="submit" value="Login" ></p>
+  </form>
+</p>
 
+<p>OR SIGN UP!</p>
 
-<form action="/login" method="POST">
-  <input type="text" name="username" placeholder="Username">
-  <input type="password" name="password" placeholder="Password">
-  <input type="submit" value="Enter" >
-</form>
-
-<a href="/signup">Sign Up</a>
-
-
+<p>
+  <form action="/signup" method="POST">
+    <p><input type="text" name="username" placeholder="Username"></p>
+    <p><input type="password" name="password" placeholder="Password"></p>
+    <p><input type="url" name="photo_url" placeholder="Profile Pic Url"></p>
+    <p><textarea name="bio" placeholder="Bio"></textarea></p>
+    <p><input type="submit" value="Register" ></p>
+  </form>
+</p>
