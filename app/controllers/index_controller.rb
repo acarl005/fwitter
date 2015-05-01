@@ -150,8 +150,13 @@
   end
 
 # DELETE TWEET
-  delete '/users/:id/tweets/:id' do
-    #delete specific tweet
+  delete '/tweets/:id' do
+    @tweet = Tweet.where(id: params[:id]).first
+    if current_user == @tweet.user.id && @tweet.destroy
+      redirect('/home')
+    else
+      redirect('/')
+    end
   end
 
   post '/likes' do
