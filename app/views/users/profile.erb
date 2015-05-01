@@ -55,7 +55,10 @@
 <!-- display user's tweets -->
   <h3><%= @user.username.capitalize %>'s tweets!</h3>
   <% @user.tweets.each do |tweet| %>
-    <article><%= tweet.text %></article>
+    <article>
+      "<%= tweet.text %>" <%= tweet.likes.count %> people like this,
+      <%= tweet.likers.include?(User.find(current_user)) ? "including you" + erb(:_unlike, locals: {tweet: tweet}) : erb(:_like, locals: {tweet: tweet}) %>
+    </article>
   <% end %>
 
 <!-- followers -->
