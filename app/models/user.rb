@@ -13,6 +13,8 @@ class User < ActiveRecord::Base
   end
 
   has_many :tweets
+  has_many :liked_tweets, through: :likes
+  has_many :likes
 
   has_many :followers, through: :i_am_a_followee_relationships
   has_many :followees, through: :i_am_a_follower_relationships
@@ -27,7 +29,7 @@ class User < ActiveRecord::Base
 
   validates :username, presence: true, uniqueness: true
   validates :password_hash, presence: true
-  validates :photo_url, presence: true
+
   validates :first_name, presence: true
   validates :last_name, presence: true
 end
