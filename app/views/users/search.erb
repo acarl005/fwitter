@@ -1,0 +1,8 @@
+<ul>
+  <% @search_result.each do |result| %>
+    <li>
+      <div><%= result.text %></div>
+      <div><%= result.user.username %></div>
+    </li>
+  <% end %>
+</ul>
