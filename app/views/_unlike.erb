@@ -1,4 +1,4 @@
-<form method="post" action="/likes">
+<form method="post" action="/likes/<%= tweet.id %>">
   <input type="hidden" name="_method" value="delete">
-  <input type="submit" value="unlike" name="<%= tweet.id %>">
+  <input type="submit" value="unlike">
 </form>
