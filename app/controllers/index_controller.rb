@@ -1,5 +1,9 @@
-get '/users/:id/home' do
-  @user = User.find(params[:id])
+get '/home' do
+  begin
+    @user = User.find(current_user)
+  rescue
+    redirect "/"
+  end
   # @user = User.where(id: params[:id]).first
   erb(:homepage)
 end
@@ -60,9 +64,11 @@ delete '/users/:id/tweets/:id' do
 end
 
 post '/users/:id/relationships' do
-  User.find(params[:id]).followers << current_user
+  User.find(params[:id]).followers << User.find(current_user)
+  redirect "/users/#{params[:id]}"
 end
 
-delete '/users/:id/relationships/:id' do
-  #destroy a follower relationship
+delete '/users/:id/relationships' do
+  User.find(params[:id]).followers.delete(User.find(current_user))
+  redirect "/users/#{params[:id]}"
 end
