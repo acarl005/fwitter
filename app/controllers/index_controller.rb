@@ -74,10 +74,6 @@
   end
 
   # THROUGH USERNAME
-  get '/:username' do
-    @user = User.where(username: params[:username]).first
-    erb :'users/profile'
-  end
 
 # EDIT PROFILE
   # EDIT FORM
@@ -172,4 +168,19 @@
     else
       redirect('/')
     end
+  end
+
+get '/search' do
+  @search_result = Tweet.where("tweets.text like ?", "%#{params[:q]}%").includes(:user)
+  if @search_result.empty?
+    p "No results"
+  else
+    erb :"users/search"
+  end
+
+end
+
+get '/:username' do
+    @user = User.where(username: params[:username]).first
+    erb :'users/profile'
   end
