@@ -79,18 +79,6 @@
     end
   end
 
-  # THROUGH USERNAME
-  get '/:username' do
-    @user = User.where(username: params[:username]).first
-    if @user
-      erb :'users/profile'
-    else
-      status 404
-      @error = "User does not exist"
-      erb :'error'
-    end
-  end
-
 # EDIT PROFILE
   # EDIT FORM
   get '/users/:id/edit' do
@@ -200,5 +188,27 @@
       redirect("/#{@tweet.user.username}")
     else
       redirect('/')
+    end
+  end
+
+get '/search' do
+  @search_result = Tweet.where("tweets.text like ?", "%#{params[:q]}%").includes(:user)
+  if @search_result.empty?
+    p "No results"
+  else
+    erb :"users/search"
+  end
+
+end
+
+# THROUGH USERNAME
+  get '/:username' do
+    @user = User.where(username: params[:username]).first
+    if @user
+      erb :'users/profile'
+    else
+      status 404
+      @error = "User does not exist"
+      erb :'error'
     end
   end
