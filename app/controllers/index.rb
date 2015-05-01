@@ -7,11 +7,16 @@ post '/login' do
   @user = User.where(username: params[:username]).first
   if @user && @user.password == params[:password]
     session[:user_id] = @user.id
-    redirect "users/#{@user.id}" #Will make this the users page probably.
+    redirect "/home" #Will make this the users page probably.
   else
     status 400
     erb :"users/index"
   end
+end
+
+delete '/login' do
+  session.delete(:user_id)
+  redirect "/"
 end
 
 get '/signup' do
