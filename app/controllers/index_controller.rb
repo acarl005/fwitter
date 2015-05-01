@@ -69,32 +69,61 @@
   # THROUGH USER ID
   get '/users/:id' do
     @user = User.where(id: params[:id]).first
-    #show user profile
-    erb :'users/profile'
+    if @user
+      #show user profile
+      erb :'users/profile'
+    else
+      status 404
+      @error = "User does not exist"
+      erb :'error'
+    end
   end
 
   # THROUGH USERNAME
   get '/:username' do
     @user = User.where(username: params[:username]).first
-    erb :'users/profile'
+    if @user
+      erb :'users/profile'
+    else
+      status 404
+      @error = "User does not exist"
+      erb :'error'
+    end
   end
 
 # EDIT PROFILE
   # EDIT FORM
   get '/users/:id/edit' do
-    #edit form erb
+    @user = User.where(id: params[:id]).first
+    erb :'users/edit'
   end
 
   # SUBMIT FORM
   put '/users/:id' do
-    #update user profile
-    #redirect to get '/users/:id/home'
+    user = User.where(id: params[:id]).first
+    puts "**************************************"
+    p user
+    user.first_name = params[:first_name]
+    user.last_name = params[:last_name]
+    user.username = params[:username]
+    user.password = params[:password]
+    user.photo_url = params[:photo_url]
+    user.bio = params[:bio]
+    if user.save
+      status 200
+      redirect "/#{user.username}"
+    else
+      status 400
+      erb :"users/edit"
+    end
   end
 
   # DELETE PROFILE
   delete '/users/:id' do
-    #delete profile
-    #redirect to '/'
+    user = User.where(id: params[:id]).first
+    user.destroy
+    session[:id] = nil
+    redirect '/'
   end
 
 # LOGIN
@@ -102,7 +131,7 @@
     @user = User.where(username: params[:username]).first
     if @user && @user.password == params[:password]
       session[:id] = @user.id
-      redirect "/home" #Will make this the users page probably.
+      redirect "/home"
     else
       status 400
       erb :"index"
@@ -137,11 +166,8 @@
     @tweet = Tweet.new(
       text: params[:tweet]
     )
-    if User.find(params[:id]).tweets << @tweet
-      redirect "/users/#{params[:id]}"
-    else
-      'you suck'
-    end
+    User.find(params[:id]).tweets << @tweet
+    redirect "/users/#{params[:id]}"
   end
 
 # DISPLAY SINGLE TWEET
