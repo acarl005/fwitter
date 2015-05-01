@@ -43,6 +43,20 @@
   <h3>Read some Tweets:</h3>
   <ul>
     <% @user.followees.map(&:tweets).flatten.sort_by(&:updated_at).each do |tweet| %>
-      <li>"<%= tweet.text %>" -<%= tweet.user.username %></li>
+      <li>
+        <%= tweet.user.username %> says <br>
+        "<%= tweet.text %>" <%= tweet.likes.count %> likes
+        <%= tweet.likers.include?(User.find(current_user)) ? erb(:_unlike, locals: {tweet: tweet}) : erb(:_like, locals: {tweet: tweet}) %>
+      </li>
+    <% end %>
+  </ul>
+
+  <h3>Your Tweets:</h3>
+  <ul>
+    <% @user.tweets.sort_by(&:updated_at).each do |tweet| %>
+      <li>
+        "<%= tweet.text %>" <%= tweet.likes.count %> likes
+        <%= erb(:_delete, locals: {tweet: tweet}) %>
+      </li>
     <% end %>
   </ul>
