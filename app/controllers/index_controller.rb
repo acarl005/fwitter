@@ -1,5 +1,9 @@
-get '/users/:id/home' do
-  @user = User.find(params[:id])
+get '/home' do
+  begin
+    @user = User.find(current_user)
+  rescue
+    redirect "/"
+  end
   # @user = User.where(id: params[:id]).first
   erb(:homepage)
 end
