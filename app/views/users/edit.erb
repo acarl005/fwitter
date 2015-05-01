@@ -1,0 +1,17 @@
+<!-- delete profile button -->
+  <form action="/users/<%= @user.id %>" method="POST">
+      <input type="hidden" name="_method" value="delete">
+    <p><input type="submit" value="Delete Profile" ></p>
+  </form>
+
+<!-- edit profile form -->
+  <form action="/users/<%= @user.id %>" method="POST">
+    <input type="hidden" name="_method" value="Put">
+    <p><input type="text" name="first_name" value="<%= @user.first_name %>" placeholder="First Name"></p>
+    <p><input type="text" name="last_name" value="<%= @user.last_name %>" placeholder="Last Name"></p>
+    <p><input type="text" name="username" value="<%= @user.username %>" placeholder="Username"></p>
+    <p><input type="password" name="password" placeholder="Password"></p>
+    <p><input type="url" name="photo_url" value="<%= @user.photo_url %>" placeholder="Profile Pic Url"></p>
+    <p><textarea name="bio" value="<%= @user.bio %>" placeholder="Bio"></textarea></p>
+    <p><input type="submit" value="Update Profile" ></p>
+  </form>

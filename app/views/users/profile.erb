@@ -1,3 +1,5 @@
+<img src="<%= @user.photo_url %>"/>
+
 <!-- follow/unfollow login/logout -->
   <% if session[:id] %>
     <!-- logout form -->
@@ -28,6 +30,13 @@
     </form>
   <% end %>
 
+<!-- edit profile button -->
+  <% if current_user != @user.id.to_i %>
+    <form method="get" action="/users/<%= @user.id %>/edit">
+      <input type="submit" value="Edit Profile">
+    </form>
+  <% end %>
+
 <!-- #of followers, #of following -->
   <h3><%= @user.username.capitalize %> has <%= @user.followers.count %>
     <!-- singular vs. plural follower s -->
@@ -37,6 +46,14 @@
       <% if @user.followees.count == 1 %> user.<% else %> users.<% end %>
   </h3>
 
+<!-- create tweets from your own profile page -->
+  <% if current_user == @user.id.to_i %>
+    <form method="post" action="/users/<%= @user.id %>/tweets">
+      <textarea name="tweet" placeholder="Tweet your thoughts to the world!"></textarea>
+      <input type="submit" value="Tweet">
+    </form>
+  <% end %>
+
 <!-- display user's tweets -->
   <h3><%= @user.username.capitalize %>'s tweets!</h3>
   <% @user.tweets.each do |tweet| %>
@@ -45,6 +62,9 @@
       <%= tweet.likers.include?(User.find(current_user)) ? "including you" + erb(:_unlike, locals: {tweet: tweet}) : erb(:_like, locals: {tweet: tweet}) %>
     </article>
   <% end %>
+
+  <h3><%= @user.username.capitalize %>'s bio:</h3>
+  <p><%= @user.bio %></p>
 
 <!-- followers -->
   <h3><%= @user.username.capitalize %>'s followers:</h3>
