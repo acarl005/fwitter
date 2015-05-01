@@ -51,7 +51,7 @@
       redirect "/home"
     else
       status 400
-      erb :"index"
+      redirect "/"
     end
   end
 
@@ -101,8 +101,6 @@
   # SUBMIT FORM
   put '/users/:id' do
     user = User.where(id: params[:id]).first
-    puts "**************************************"
-    p user
     user.first_name = params[:first_name]
     user.last_name = params[:last_name]
     user.username = params[:username]
@@ -134,7 +132,7 @@
       redirect "/home"
     else
       status 400
-      erb :"index"
+      redirect "/"
     end
   end
 
