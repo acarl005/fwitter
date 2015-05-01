@@ -2,7 +2,7 @@
   <% @search_result.each do |result| %>
     <li>
       <div><%= result.text %></div>
-      <div><%= result.user.username %></div>
+      <div><a href="/<%= result.user.username.downcase %>"><%= result.user.username %></a></div>
     </li>
   <% end %>
 </ul>
