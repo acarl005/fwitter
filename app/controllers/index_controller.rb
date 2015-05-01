@@ -1,9 +1,11 @@
+# UNLESS LOGGED_IN? REDIRECT TO '/'!!! How?
+
 # INDEX
   get '/' do
     if session[:id]
       redirect "/home"
     else
-      erb :"users/index"
+      erb :"index"
     end
   end
 
@@ -38,6 +40,9 @@
       username: params[:username],
       password: params[:password],
       bio:      params[:bio],
+      photo_url: params[:photo_url],
+      first_name: params[:first_name],
+      last_name: params[:last_name],
       )
     if @user.save
       status 200
@@ -51,7 +56,14 @@
   end
 
 # USER INDEX
-  get '/users'
+  get '/users' do
+    @users = User.all
+    @top_ten = @users
+            .sort_by {|user| user.followers.count}
+            .reverse!
+            .first(10)
+    erb :'users/index'
+  end
 
 # DIRECT TO PROFILE
   # THROUGH USER ID
@@ -93,7 +105,7 @@
       redirect "/home" #Will make this the users page probably.
     else
       status 400
-      erb :"users/index"
+      erb :"index"
     end
   end
 

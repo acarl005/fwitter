@@ -1,22 +1,6 @@
+<!-- search for users by first name, last name, or username -->
 
-<p>LOGIN</p>
-
-<p>
-  <form action="/login" method="POST">
-    <p><input type="text" name="username" placeholder="Username"></p>
-    <p><input type="password" name="password" placeholder="Password"></p>
-    <p><input type="submit" value="Login" ></p>
-  </form>
-</p>
-
-<p>OR SIGN UP!</p>
-
-<p>
-  <form action="/signup" method="POST">
-    <p><input type="text" name="username" placeholder="Username"></p>
-    <p><input type="password" name="password" placeholder="Password"></p>
-    <p><input type="url" name="photo_url" placeholder="Profile Pic Url"></p>
-    <p><textarea name="bio" placeholder="Bio"></textarea></p>
-    <p><input type="submit" value="Register" ></p>
-  </form>
-</p>
+<!-- display first 10 users with the most followers -->
+  <% @top_ten.each do |user| %>
+    <h3><a href="/<%= user.username %>"><%= user.username %></a></h3>
+  <% end %>

@@ -31,11 +31,11 @@
 <!-- followers -->
   <h3>Your followers:</h3>
   <% @user.followers.each do |follower| %>
-    <p><%= follower.username %></p>
+    <p><a href="/<%= follower.username %>"><%= follower.username %></a></p>
   <% end %>
 
 <!-- following -->
   <h3>You are following:</h3>
   <% @user.followees.each do |followee| %>
-    <p><%= followee.username %></p>
+    <p><a href="/<%= followee.username %>"><%= followee.username %></a></p>
   <% end %>
