@@ -17,7 +17,6 @@ tweets = [
 
 tweets.each do |tweet|
   erica.tweets << Tweet.new(text: tweet)
-
 end
 
 

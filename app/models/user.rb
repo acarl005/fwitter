@@ -13,6 +13,8 @@ class User < ActiveRecord::Base
   end
 
   has_many :tweets
+  has_many :liked_tweets, through: :likes
+  has_many :likes
 
   has_many :followers, through: :i_am_a_followee_relationships
   has_many :followees, through: :i_am_a_follower_relationships
