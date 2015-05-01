@@ -20,7 +20,7 @@ delete '/login' do
 end
 
 get '/signup' do
-  erb :signup
+  erb :"users/signup"
 end
 
 
@@ -34,7 +34,7 @@ post '/signup' do
     status 200
     session[:user_id] = @user_id
     # redirect "/users/#{params[:id]}"
-    redirect "/users/:id"
+    redirect "users/#{@user.id}"
   else
     status 400
     erb :"/users/signup"
