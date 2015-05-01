@@ -28,6 +28,7 @@ class User < ActiveRecord::Base
             foreign_key: "followee_id"
 
   validates :username, presence: true, uniqueness: true
+# i dont think either password validation works
   validates :password, presence: true
   validates :password_hash, presence: true
   validates :first_name, presence: true

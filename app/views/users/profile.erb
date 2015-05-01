@@ -9,7 +9,7 @@
     </form>
 
     <!-- follow && unfollow buttons -->
-    <% if current_user != @user.id.to_i %>
+    <% if current_user && current_user != @user.id.to_i %>
       <% if !User.find(current_user).followees.include?(User.find(@user.id)) %>
         <form method="post" action="/users/<%= @user.id %>/relationships">
           <input type='submit' value="follow">

@@ -51,7 +51,7 @@
       redirect "/home"
     else
       status 400
-      erb :"index"
+      redirect "/"
     end
   end
 
@@ -120,7 +120,7 @@
       redirect "/home"
     else
       status 400
-      erb :"index"
+      redirect "/"
     end
   end
 
