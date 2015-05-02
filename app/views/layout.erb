@@ -13,7 +13,20 @@
 
   <title>Fwitter</title>
 </head>
+
 <body>
-  <%= yield %>
+  <header>
+    <h1><a href="/">Fwitter</a></h1>
+    <h2>Fake Twitter? Why the hell not?!</h2>
+  </header>
+  <br><br>
+  <main>
+    <%= yield %>
+    <div class="push"></div>
+  </main>
+
+  <footer>
+    <p><small>A fake Twitter, because why the hell not?</small></p>
+  </footer>
 </body>
 </html>
